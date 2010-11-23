@@ -2067,6 +2067,7 @@ SVGRenderer.prototype = {
 	 * @param {String} str
 	 */
 	buildText: function(textNode, str) {
+	    str = str || "";
 		var lines = str.toString()
 				.replace(/<(b|strong)>/g, '<span style="font-weight:bold">')
 				.replace(/<(i|em)>/g, '<span style="font-style:italic">')
