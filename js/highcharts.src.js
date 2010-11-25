@@ -2603,6 +2603,15 @@ SVGRenderer.prototype = {
 		wrapper.x = x;
 		wrapper.y = y;
 		return wrapper;
+	},
+	
+	/**
+	 * Draw and return a Polyline
+	 */
+	polyline: function(points) {
+	    return this.createElement('polyline').attr({
+	        points: points
+        });
 	}
 }; // end SVGRenderer
 
