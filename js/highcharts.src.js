@@ -850,6 +850,9 @@ defaultOptions = {
 		labelFormatter: function() {
 			return this.name;
 		},
+		generateItem: function(renderer) {
+		    return false;
+		},
 		// lineHeight: 16, // docs: deprecated
 		borderWidth: 1,
 		borderColor: '#909090',
@@ -6272,14 +6275,19 @@ function Chart (options, callback) {
 				// let these series types use a simple symbol
 				simpleSymbol = /^(bar|pie|area|column)$/.test(series.type);
 				
-				// generate the list item text
-				item.legendItem = li = renderer.text(
-						options.labelFormatter.call(item),
-						0, 
-						0
-					)
-					.css(item.visible ? itemStyle : itemHiddenStyle)
-					.on('mouseover', function() {
+                // see if there is a generateItem function
+                li = options.generateItem.call(item, renderer);
+                if (!li) {
+                    // generate the list item text
+                    li = renderer.text(
+                        options.labelFormatter.call(item),
+                        0, 
+                        0
+                    );
+                }
+				item.legendItem = li;
+				li.css(item.visible ? itemStyle : itemHiddenStyle)
+                    .on('mouseover', function() {
 						item.setState(HOVER_STATE);
 						li.css(itemHoverStyle);
 					})
